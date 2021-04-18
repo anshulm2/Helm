@@ -4,3 +4,10 @@ metadata:
         name: {{ .Release.Name}}-configmap
 data:
         myvalue: "sample config map"
+        costcode: {{ .Values.costCode}}
+        Zone: {{quote .Values.infra.zone}}
+        Region: {{quote .Values.infra.region}}
+        ProjectCode: {{upper .Values.projectCode}}
+        pipeline: {{ .Values.projectCode|upper|quote}}
+        now: {{ now | date "2021-04-18" | quote}}
+        contact: {{ .Values.contact | default "asfasga" | quote}}
