@@ -2,12 +2,27 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
         name: {{ .Release.Name}}-configmap
+        labels:
+        {{- with .Values.tags}}
+          first: {{.machine}}
+          second: {{.rack}}
+          third: {{.drive}}
+        {{- end}}
 data:
         myvalue: "sample config map"
         costcode: {{ .Values.costCode}}
         Zone: {{quote .Values.infra.zone}}
         Region: {{quote .Values.infra.region}}
         ProjectCode: {{upper .Values.projectCode}}
+        {{- if eq .Values.infra.region "us-east" }}
+        ha: true
+        {{- end }}
         pipeline: {{ .Values.projectCode|upper|quote}}
         now: {{ now | date "2021-04-18" | quote}}
         contact: {{ .Values.contact | default "asfasga" | quote}}
+        {{- with .Values.tags }}
+        Machine Type: {{ .machine|default "NA"|quote }}
+        Rack ID: {{ .rack|quote}}
+        Storage type: {{ .drive|upper|quote}}
+        Video Card: {{.vcard|quote}}
+        {{- end}}

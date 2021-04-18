@@ -3,3 +3,8 @@ projectCode: testproject
 infra:
         zone: a,b,c
         region: us-east
+tags:
+        machine: frontdrive
+        rack: 4c
+        vcard: 8GB
+        drive: ssd
