@@ -20,9 +20,15 @@ data:
         pipeline: {{ .Values.projectCode|upper|quote}}
         now: {{ now | date "2021-04-18" | quote}}
         contact: {{ .Values.contact | default "asfasga" | quote}}
+        {{- $relname := .Release.Name -}}
         {{- with .Values.tags }}
         Machine Type: {{ .machine|default "NA"|quote }}
         Rack ID: {{ .rack|quote}}
         Storage type: {{ .drive|upper|quote}}
         Video Card: {{.vcard|quote}}
+        Release Name: {{ $relname }}
         {{- end}}
+        Lang Used: |-
+                {{- range $index, $topping := .Values.LangUsed }}
+                - {{$index}}:{{$topping}}
+                {{end}}
